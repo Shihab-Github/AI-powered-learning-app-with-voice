@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {usePathname} from "next/navigation";
 import {cn} from "@/lib/utils";
+import {SignInButton, UserButton, useUser} from "@clerk/nextjs";
 
 const navItems = [
     {label: "Library", href: "/"},
@@ -12,6 +13,10 @@ const navItems = [
 
 export const Navbar = () => {
     const pathName = usePathname()
+    const { user } = useUser()
+
+    console.log('user: ', user)
+
     return (
         <header className="w-full fixed z-50 bg-('--bg-primary')">
             <div className="wrapper navbar-height py-4 flex justify-between items-center">
@@ -29,6 +34,27 @@ export const Navbar = () => {
                             </Link>
                         )
                     })}
+                    <div className="flex items-center gap-4 ml-4">
+
+                        {!user && (
+                            <SignInButton mode="modal">
+                                <button className="px-4 py-2 text-sm font-medium text-black hover:opacity-70">
+                                    Sign In
+                                </button>
+                            </SignInButton>
+                        )}
+
+                        {user && (
+                            <div className="nav-user-link">
+                                <UserButton/>
+                                { user.firstName ? (
+                                    <Link href={`/subscriptions`}>{user.firstName}</Link>
+                                ) : <></>}
+
+                            </div>
+
+                        )}
+                    </div>
                 </nav>
             </div>
         </header>
