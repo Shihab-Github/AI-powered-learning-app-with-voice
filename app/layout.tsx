@@ -34,10 +34,18 @@ export default function RootLayout({
       lang="en"
       className={`${ibmPlexSerif.variable} ${monaSans.variable} relative font-sans h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full  flex flex-col">
         <ClerkProvider>
           <Navbar />
-          {children}
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <div>
+                {children}
+            </div>
+
         </ClerkProvider>
       </body>
     </html>
